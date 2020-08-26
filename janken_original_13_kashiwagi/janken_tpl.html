@@ -31,9 +31,10 @@
     <div class="rule">
         ◆ルール<br>
         白は發に勝ち、發は中に勝ち、中は白に勝つ<br>
-        東南戦の全８局、終局後に点数高いほうが勝ち。西入はなし<br>
         じゃんけんに勝つと相手から1,000点もらい、負けると相手に1,000点渡す<br>
-        流局(=アイコ)の場合、局は進まず、次の点数は倍プッシュ <br>
+        東南戦の全８局、最終的に点数が多い方が勝ち。西入はなし<br>
+        点数がマイナスになったらその時点で負け<br>
+        流局(=アイコ)の場合、次回は同局・倍プッシュ <br>
         <!-- 親は点数２倍（準備中）<br> -->
         <!-- ドラは点数２倍（準備中）<br> -->
     </div>
@@ -170,6 +171,36 @@ if(num==2){
         $("#akagi").html('<img src="img/akagi1.png">');
         $("#akagi").css("text-align" ,"center");
         tonba = tonba+1;
+
+// ここから
+if(score>50000){
+            $("#judgment").html("勝ち");
+            $("#judgment").css("color","#ff0000");
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            $("#judgment").css("color","#ff0000");
+            $("#judgment").css("background","#000000");
+            $("#score_aite").css("color","#0000ff");
+        }
+        if(score<0){
+            $("#judgment").html("負け");
+            $("#judgment").css("color","#0000ff");
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            $("#judgment").css("color","#ff0000");
+            $("#judgment").css("background","#000000");
+            $("#your_score").css("color","#0000ff");
+            }
+// ここまで
+
         if(tonba==2){
             $("#kyoku2").html('東二局');
         }
@@ -201,7 +232,6 @@ if(num==2){
             $("#haku_btn").remove();
             $("#hatsu_btn").remove();
             $("#chun_btn").remove();
-            // alert("終局です！");
             if(score < 25000){
                 $("#judgment").html("負け");
                 $("#judgment").css("color","#0000ff");
@@ -240,6 +270,36 @@ if(num==2){
         $("#akagi").html('<img src="img/akagi1.png">');
         $("#akagi").css("text-align" ,"center");
         tonba = tonba+1;
+
+// ここから
+if(score>50000){
+            $("#judgment").html("勝ち");
+            $("#judgment").css("color","#ff0000");
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            $("#judgment").css("color","#ff0000");
+            $("#judgment").css("background","#000000");
+            $("#score_aite").css("color","#0000ff");
+        }
+        if(score<0){
+            $("#judgment").html("負け");
+            $("#judgment").css("color","#0000ff");
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            $("#judgment").css("color","#ff0000");
+            $("#judgment").css("background","#000000");
+            $("#your_score").css("color","#0000ff");
+            }
+// ここまで
+
         if(tonba==2){
             $("#kyoku2").html('東二局');
         }
@@ -271,7 +331,6 @@ if(num==2){
             $("#haku_btn").remove();
             $("#hatsu_btn").remove();
             $("#chun_btn").remove();
-            // alert("終局です！");
             if(score < 25000){
                 $("#judgment").html("負け");
                 $("#judgment").css("color","#0000ff");
@@ -298,8 +357,8 @@ if(num==2){
 
 //アイコ
 $("#hatsu_btn").on("click",function(){
-    const num = Math.ceil( Math.random() * 3);
-    if(num==2){
+    const num = Math.ceil( Math.random() * 4);
+    if(num==2||4){
         $("#pc_hands").html('<img src="img/hatsu.png">');
         $("#my_hands").html('<img src="img/hatsu.png">');
         $("#judgment").html('流局');
@@ -330,6 +389,36 @@ if(num==3){
         $("#akagi").html('<img src="img/akagi1.png">');
         $("#akagi").css("text-align" ,"center");
         tonba = tonba+1;
+
+// ここから
+if(score>50000){
+            $("#judgment").html("勝ち");
+            $("#judgment").css("color","#ff0000");
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            $("#judgment").css("color","#ff0000");
+            $("#judgment").css("background","#000000");
+            $("#score_aite").css("color","#0000ff");
+        }
+        if(score<0){
+            $("#judgment").html("負け");
+            $("#judgment").css("color","#0000ff");
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            $("#judgment").css("color","#ff0000");
+            $("#judgment").css("background","#000000");
+            $("#your_score").css("color","#0000ff");
+            }
+// ここまで
+
         if(tonba==2){
             $("#kyoku2").html('東二局');
         }
@@ -361,7 +450,6 @@ if(num==3){
             $("#haku_btn").remove();
             $("#hatsu_btn").remove();
             $("#chun_btn").remove();
-            // alert("終局です！");
             if(score < 25000){
                 $("#judgment").html("負け");
                 $("#judgment").css("color","#0000ff");
@@ -400,6 +488,36 @@ if(num==3){
         $("#akagi").html('<img src="img/akagi1.png">');
         $("#akagi").css("text-align" ,"center");
         tonba = tonba+1;
+
+// ここから
+if(score>50000){
+            $("#judgment").html("勝ち");
+            $("#judgment").css("color","#ff0000");
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            $("#judgment").css("color","#ff0000");
+            $("#judgment").css("background","#000000");
+            $("#score_aite").css("color","#0000ff");
+        }
+        if(score<0){
+            $("#judgment").html("負け");
+            $("#judgment").css("color","#0000ff");
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            $("#judgment").css("color","#ff0000");
+            $("#judgment").css("background","#000000");
+            $("#your_score").css("color","#0000ff");
+            }
+// ここまで
+
         if(tonba==2){
             $("#kyoku2").html('東二局');
         }
@@ -431,7 +549,6 @@ if(num==3){
             $("#haku_btn").remove();
             $("#hatsu_btn").remove();
             $("#chun_btn").remove();
-            // alert("終局です！");
             if(score < 25000){
                 $("#judgment").html("負け");
                 $("#judgment").css("color","#0000ff");
@@ -456,9 +573,10 @@ if(num==3){
 // 中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン
 // 中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン
 
+// アイコ
 $("#chun_btn").on("click",function(){
-    const num = Math.ceil( Math.random() * 3);
-    if(num==3){
+    const num = Math.ceil( Math.random() * 7);
+    if(num==3||4||5||6||7){
         $("#pc_hands").html('<img src="img/chun.png">');
         $("#my_hands").html('<img src="img/chun.png">');
         $("#judgment").html('流局');
@@ -489,6 +607,36 @@ if(num==1){
         $("#akagi").html('<img src="img/akagi1.png">');
         $("#akagi").css("text-align" ,"center");
         tonba = tonba+1;
+
+// ここから
+if(score>50000){
+            $("#judgment").html("勝ち");
+            $("#judgment").css("color","#ff0000");
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            $("#judgment").css("color","#ff0000");
+            $("#judgment").css("background","#000000");
+            $("#score_aite").css("color","#0000ff");
+        }
+        if(score<0){
+            $("#judgment").html("負け");
+            $("#judgment").css("color","#0000ff");
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            $("#judgment").css("color","#ff0000");
+            $("#judgment").css("background","#000000");
+            $("#your_score").css("color","#0000ff");
+            }
+// ここまで
+
         if(tonba==2){
             $("#kyoku2").html('東二局');
         }
@@ -520,7 +668,6 @@ if(num==1){
             $("#haku_btn").remove();
             $("#hatsu_btn").remove();
             $("#chun_btn").remove();
-            // alert("終局です！");
             if(score < 25000){
                 $("#judgment").html("負け");
                 $("#judgment").css("color","#0000ff");
@@ -560,6 +707,35 @@ if(num==1){
         $("#akagi").html('<img src="img/akagi1.png">');
         $("#akagi").css("text-align" ,"center");
         tonba = tonba+1;
+        
+// ここから
+        if(score>50000){
+            $("#judgment").html("勝ち");
+            $("#judgment").css("color","#ff0000");
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            $("#judgment").css("color","#ff0000");
+            $("#judgment").css("background","#000000");
+            $("#score_aite").css("color","#0000ff");
+        }
+        if(score<0){
+            $("#judgment").html("負け");
+            $("#judgment").css("color","#0000ff");
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            $("#judgment").css("color","#ff0000");
+            $("#judgment").css("background","#000000");
+            $("#your_score").css("color","#0000ff");
+            }
+// ここまで
         if(tonba==2){
             $("#kyoku2").html('東二局');
         }
@@ -591,7 +767,6 @@ if(num==1){
             $("#haku_btn").remove();
             $("#hatsu_btn").remove();
             $("#chun_btn").remove();
-            // alert("終局です！");
             if(score < 25000){
                 $("#judgment").html("負け");
                 $("#judgment").css("color","#0000ff");
