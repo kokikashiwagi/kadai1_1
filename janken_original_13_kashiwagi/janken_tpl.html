@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+<title>じゃんけん</title>
+</head>
+<body>
+
+<header>
+    <h1>まーじゃんけん
+        <div id="daisan">
+            大三元
+        </div>
+    </h1>
+</header>
+
+<main>
+    <div class="toha">
+        ◆大三元とは<br>
+        麻雀における役のひとつ。<br>
+        白・發・中の3種類をすべて刻子または槓子にして和了した時に成立する。<br>
+        役満。副露可。
+        <br>
+        <img src="img/daisangen.jpeg" alt="">
+        <br><br>
+    </div>
+
+    <div class="rule">
+        ◆ルール<br>
+        白は發に勝ち、發は中に勝ち、中は白に勝つ<br>
+        東南戦の全８局、西入はなし<br>
+        勝つと相手から1,000点もらい、負けると相手に1,000点渡す<br>
+        流局(=アイコ)の場合、局は進まず、次の点数は倍プッシュ <br>
+        <!-- 親は点数２倍（準備中）<br> -->
+        <!-- ドラは点数２倍（準備中）<br> -->
+    </div>
+
+    <div class="kyoku">
+        <span id="kyoku2">
+            東一局
+        </span>
+    </div>
+    <br>
+    <div id="akagi">
+        <img src="img/akagi1.png" alt="">
+    </div>
+    <div class="toimen_scores">
+        対面の点数：
+        <span id="score_aite">
+        </span>
+        点
+    </div>
+
+    <div class="toimen">
+        <div>
+        対面の手配<br>
+        <span id="pc_hands"></span>
+        <br>
+        <span id="my_hands"></span>
+        <br>
+        自分の手配
+        </div>
+    </div>
+    <div>
+        <span id="honba"> 
+        </span>
+        <span id="honba_tenbou">
+        </span>
+    </div>
+      <div class="jikyoku">次の点数：
+        <span id="point_next">
+        </span>
+        点
+    </div>
+    
+    
+        <div class="jibun">
+            自分の点数：
+            <span id="your_score">
+            </span>
+            点
+        </div>
+        <div id="judgment">  </div>
+    
+  <ul>
+    <li id="haku_btn" >
+        <img src="img/haku.png" alt="">
+    </li>
+    <li id="hatsu_btn">
+        <img src="img/hatsu.png" alt="">
+    </li>
+    <li id="chun_btn">
+        <img src="img/chun.png" alt="">
+    </li>
+  </ul>
+
+</main>
+<footer></footer>
+
+<!-- //JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始 -->
+<!-- //JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始 -->
+<!-- //JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始 -->
+<!-- //JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始JS開始 -->
+<script>
+
+$("#judgment").html('自分の手を選んでね');
+$("#judgment").css("text-align" ,"center");
+
+$("#daisan").css("color","#ff0000");
+$("#akagi").css("text-align" ,"center");
+$("#pc_hands").html('<img src="img/hai_ura.png">');
+$("#my_hands").html('<img src="img/hai_ura.png">');
+let tonba = 1;
+
+let score = 25000;
+$("#your_score").html(score);
+
+let score_aite = 25000;
+$("#score_aite").html(score_aite);
+
+let honba = 0;
+
+let point_next = 1000;
+$("#point_next").html(point_next);
+$("#honba_tenbou").html('<img src="img/blank.png">');
+
+
+//ボタンクリック部分開始/ボタンクリック部分開始/ボタンクリック部分開始/ボタンクリック部分開始/
+//ボタンクリック部分開始/ボタンクリック部分開始/ボタンクリック部分開始/ボタンクリック部分開始/
+
+//白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン
+//白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン
+//白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン
+//白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン白ボタン
+
+//アイコ
+$("#haku_btn").on("click",function(){
+    const num = Math.ceil( Math.random() * 3);
+    if(num==1){
+        $("#pc_hands").html('<img src="img/haku.png">');
+        $("#my_hands").html('<img src="img/haku.png">');
+        $("#judgment").html('流局');
+        $("#judgment").css("color","#00ff00");
+        $("#akagi").html('<img src="img/baipush.jpg">');
+        $("#akagi").css("text-align" ,"center");
+        honba = honba+1;
+        point_next = (2**honba)*1000;
+        $("#your_score").html(score);
+        $("#honba_tenbou").append('<img src="img/tenbou100.png">');
+        $("#point_next").html(point_next);
+    }
+//勝ち
+if(num==2){
+        $("#pc_hands").html('<img src="img/hatsu.png">');
+        $("#my_hands").html('<img src="img/haku.png">');
+        $("#judgment").css("color","#ff0000");
+        score = score + point_next;
+        score_aite = 50000-score;
+        honba = 0;
+        $("#judgment").html("+"+point_next);
+        point_next = 1000;
+        $("#your_score").html(score);
+        $("#score_aite").html(score_aite);
+        $("#honba_tenbou").empty();
+        $("#honba_tenbou").html('<img src="img/blank.png">');
+        $("#point_next").html(point_next);
+        $("#akagi").html('<img src="img/akagi1.png">');
+        $("#akagi").css("text-align" ,"center");
+        tonba = tonba+1;
+        if(tonba==2){
+            $("#kyoku2").html('東二局');
+        }
+        else if(tonba==3){
+            $("#kyoku2").html('東三局');
+        }
+        else if(tonba==4){
+            $("#kyoku2").html('東四局');
+        }
+        else if(tonba==5){
+            $("#kyoku2").html('南一局');
+            $("#kyoku2").css("color","#ff0000");
+            // alert("南入です！");
+        }
+        else if(tonba==6){
+            $("#kyoku2").html('南二局');
+        }
+        else if(tonba==7){
+            $("#kyoku2").html('南三局');
+        }
+        else if(tonba==8){
+            $("#kyoku2").html('南四局');
+            // alert("オーラスです！");
+        }
+        else if(tonba==9){
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            // alert("終局です！");
+            if(score < 25000){
+                $("#judgment").html("負け");
+                $("#judgment").css("color","#0000ff");
+                $("#judgment").css("background","#000000");
+
+            }
+            else if(score > 25000){
+                $("#judgment").html("勝ち");
+                $("#judgment").css("color","#ff0000");
+                $("#judgment").css("background","#000000");
+
+
+            }else{
+                $("#judgment").html("引き分け");
+                $("#judgment").css("color","#00ff00");
+                $("#judgment").css("background","#000000");
+
+            }
+        }
+    }
+//負け
+    if(num==3){
+        $("#pc_hands").html('<img src="img/chun.png">');
+        $("#my_hands").html('<img src="img/haku.png">');
+        $("#judgment").css("color","#0000ff");
+        $("#judgment").html(-point_next);
+        score = score - point_next;
+        score_aite = 50000-score;
+        honba = 0;
+        point_next = 1000;
+        $("#your_score").html(score);
+        $("#score_aite").html(score_aite);
+        $("#honba_tenbou").empty();
+        $("#honba_tenbou").html('<img src="img/blank.png">');
+        $("#point_next").html(point_next);
+        $("#akagi").html('<img src="img/akagi1.png">');
+        $("#akagi").css("text-align" ,"center");
+        tonba = tonba+1;
+        if(tonba==2){
+            $("#kyoku2").html('東二局');
+        }
+        if(tonba==3){
+            $("#kyoku2").html('東三局');
+        }
+        if(tonba==4){
+            $("#kyoku2").html('東四局');
+        }
+        if(tonba==5){
+            $("#kyoku2").html('南一局');
+            $("#kyoku2").css("color","#ff0000");
+            // alert("南入です！");
+        }
+        if(tonba==6){
+            $("#kyoku2").html('南二局');
+        }
+        if(tonba==7){
+            $("#kyoku2").html('南三局');
+        }
+        if(tonba==8){
+            $("#kyoku2").html('南四局');
+            // alert("オーラスです！");
+        }
+        if(tonba==9){
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("background","#000000");
+            $("#kyoku2").css("color","white");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            // alert("終局です！");
+            if(score < 25000){
+                $("#judgment").html("負け");
+                $("#judgment").css("color","#0000ff");
+                $("#judgment").css("background","#000000");
+            }
+            else if(score > 25000){
+                $("#judgment").html("勝ち");
+                $("#judgment").css("color","#ff0000");
+                $("#judgment").css("background","#000000");
+
+            }else{
+                $("#judgment").html("引き分け");
+                $("#judgment").css("color","#00ff00");
+                $("#judgment").css("background","#000000");
+            }
+
+        }
+    }
+});
+// 發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン
+// 發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン
+// 發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン
+// 發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン發ボタン
+
+//アイコ
+$("#hatsu_btn").on("click",function(){
+    const num = Math.ceil( Math.random() * 3);
+    if(num==2){
+        $("#pc_hands").html('<img src="img/hatsu.png">');
+        $("#my_hands").html('<img src="img/hatsu.png">');
+        $("#judgment").html('流局');
+        $("#judgment").css("color","#00ff00");
+        $("#akagi").html('<img src="img/baipush.jpg">');
+        $("#akagi").css("text-align" ,"center");
+        honba = honba+1;
+        point_next = (2**honba)*1000;
+        $("#your_score").html(score);
+        $("#honba_tenbou").append('<img src="img/tenbou100.png">');
+        $("#point_next").html(point_next);
+    }
+//勝ち
+if(num==3){
+        $("#pc_hands").html('<img src="img/chun.png">');
+        $("#my_hands").html('<img src="img/hatsu.png">');
+        $("#judgment").css("color","#ff0000");
+        score = score + point_next;
+        score_aite = 50000-score;
+        honba = 0;
+        $("#judgment").html("+"+point_next);
+        point_next = 1000;
+        $("#your_score").html(score);
+        $("#score_aite").html(score_aite);
+        $("#honba_tenbou").empty();
+        $("#honba_tenbou").html('<img src="img/blank.png">');
+        $("#point_next").html(point_next);
+        $("#akagi").html('<img src="img/akagi1.png">');
+        $("#akagi").css("text-align" ,"center");
+        tonba = tonba+1;
+        if(tonba==2){
+            $("#kyoku2").html('東二局');
+        }
+        else if(tonba==3){
+            $("#kyoku2").html('東三局');
+        }
+        else if(tonba==4){
+            $("#kyoku2").html('東四局');
+        }
+        else if(tonba==5){
+            $("#kyoku2").html('南一局');
+            $("#kyoku2").css("color","#ff0000");
+            // alert("南入です！");
+        }
+        else if(tonba==6){
+            $("#kyoku2").html('南二局');
+        }
+        else if(tonba==7){
+            $("#kyoku2").html('南三局');
+        }
+        else if(tonba==8){
+            $("#kyoku2").html('南四局');
+            // alert("オーラスです！");
+        }
+        else if(tonba==9){
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            // alert("終局です！");
+            if(score < 25000){
+                $("#judgment").html("負け");
+                $("#judgment").css("color","#0000ff");
+                $("#judgment").css("background","#000000");
+
+            }
+            else if(score > 25000){
+                $("#judgment").html("勝ち");
+                $("#judgment").css("color","#ff0000");
+                $("#judgment").css("background","#000000");
+
+
+            }else{
+                $("#judgment").html("引き分け");
+                $("#judgment").css("color","#00ff00");
+                $("#judgment").css("background","#000000");
+
+            }
+        }
+    }
+//負け
+    if(num==1){
+        $("#pc_hands").html('<img src="img/haku.png">');
+        $("#my_hands").html('<img src="img/hatsu.png">');
+        $("#judgment").css("color","#0000ff");
+        $("#judgment").html(-point_next);
+        score = score - point_next;
+        score_aite = 50000-score;
+        honba = 0;
+        point_next = 1000;
+        $("#your_score").html(score);
+        $("#score_aite").html(score_aite);
+        $("#honba_tenbou").empty();
+        $("#honba_tenbou").html('<img src="img/blank.png">');
+        $("#point_next").html(point_next);
+        $("#akagi").html('<img src="img/akagi1.png">');
+        $("#akagi").css("text-align" ,"center");
+        tonba = tonba+1;
+        if(tonba==2){
+            $("#kyoku2").html('東二局');
+        }
+        if(tonba==3){
+            $("#kyoku2").html('東三局');
+        }
+        if(tonba==4){
+            $("#kyoku2").html('東四局');
+        }
+        if(tonba==5){
+            $("#kyoku2").html('南一局');
+            $("#kyoku2").css("color","#ff0000");
+            // alert("南入です！");
+        }
+        if(tonba==6){
+            $("#kyoku2").html('南二局');
+        }
+        if(tonba==7){
+            $("#kyoku2").html('南三局');
+        }
+        if(tonba==8){
+            $("#kyoku2").html('南四局');
+            // alert("オーラスです！");
+        }
+        if(tonba==9){
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("background","#000000");
+            $("#kyoku2").css("color","white");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            // alert("終局です！");
+            if(score < 25000){
+                $("#judgment").html("負け");
+                $("#judgment").css("color","#0000ff");
+                $("#judgment").css("background","#000000");
+            }
+            else if(score > 25000){
+                $("#judgment").html("勝ち");
+                $("#judgment").css("color","#ff0000");
+                $("#judgment").css("background","#000000");
+
+            }else{
+                $("#judgment").html("引き分け");
+                $("#judgment").css("color","#00ff00");
+                $("#judgment").css("background","#000000");
+            }
+
+        }
+    }
+});
+// 中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン
+// 中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン
+// 中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン
+// 中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン中ボタン
+
+$("#chun_btn").on("click",function(){
+    const num = Math.ceil( Math.random() * 3);
+    if(num==3){
+        $("#pc_hands").html('<img src="img/chun.png">');
+        $("#my_hands").html('<img src="img/chun.png">');
+        $("#judgment").html('流局');
+        $("#judgment").css("color","#00ff00");
+        $("#akagi").html('<img src="img/baipush.jpg">');
+        $("#akagi").css("text-align" ,"center");
+        honba = honba+1;
+        point_next = (2**honba)*1000;
+        $("#your_score").html(score);
+        $("#honba_tenbou").append('<img src="img/tenbou100.png">');
+        $("#point_next").html(point_next);
+    }
+//中ボタン
+if(num==1){
+        $("#pc_hands").html('<img src="img/haku.png">');
+        $("#my_hands").html('<img src="img/chun.png">');
+        $("#judgment").css("color","#ff0000");
+        score = score + point_next;
+        score_aite = 50000-score;
+        honba = 0;
+        $("#judgment").html("+"+point_next);
+        point_next = 1000;
+        $("#your_score").html(score);
+        $("#score_aite").html(score_aite);
+        $("#honba_tenbou").empty();
+        $("#honba_tenbou").html('<img src="img/blank.png">');
+        $("#point_next").html(point_next);
+        $("#akagi").html('<img src="img/akagi1.png">');
+        $("#akagi").css("text-align" ,"center");
+        tonba = tonba+1;
+        if(tonba==2){
+            $("#kyoku2").html('東二局');
+        }
+        else if(tonba==3){
+            $("#kyoku2").html('東三局');
+        }
+        else if(tonba==4){
+            $("#kyoku2").html('東四局');
+        }
+        else if(tonba==5){
+            $("#kyoku2").html('南一局');
+            $("#kyoku2").css("color","#ff0000");
+            // alert("南入です！");
+        }
+        else if(tonba==6){
+            $("#kyoku2").html('南二局');
+        }
+        else if(tonba==7){
+            $("#kyoku2").html('南三局');
+        }
+        else if(tonba==8){
+            $("#kyoku2").html('南四局');
+            // alert("オーラスです！");
+        }
+        else if(tonba==9){
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("color","white");
+            $("#kyoku2").css("background","#000000");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            // alert("終局です！");
+            if(score < 25000){
+                $("#judgment").html("負け");
+                $("#judgment").css("color","#0000ff");
+                $("#judgment").css("background","#000000");
+
+            }
+            else if(score > 25000){
+                $("#judgment").html("勝ち");
+                $("#judgment").css("color","#ff0000");
+                $("#judgment").css("background","#000000");
+
+
+            }else{
+                $("#judgment").html("引き分け");
+                $("#judgment").css("color","#00ff00");
+                $("#judgment").css("background","#000000");
+
+            }
+        }
+    }
+//中ボタン
+//負け
+    if(num==2){
+        $("#pc_hands").html('<img src="img/hatsu.png">');
+        $("#my_hands").html('<img src="img/chun.png">');
+        $("#judgment").css("color","#0000ff");
+        $("#judgment").html(-point_next);
+        score = score - point_next;
+        score_aite = 50000-score;
+        honba = 0;
+        point_next = 1000;
+        $("#your_score").html(score);
+        $("#score_aite").html(score_aite);
+        $("#honba_tenbou").empty();
+        $("#honba_tenbou").html('<img src="img/blank.png">');
+        $("#point_next").html(point_next);
+        $("#akagi").html('<img src="img/akagi1.png">');
+        $("#akagi").css("text-align" ,"center");
+        tonba = tonba+1;
+        if(tonba==2){
+            $("#kyoku2").html('東二局');
+        }
+        if(tonba==3){
+            $("#kyoku2").html('東三局');
+        }
+        if(tonba==4){
+            $("#kyoku2").html('東四局');
+        }
+        if(tonba==5){
+            $("#kyoku2").html('南一局');
+            $("#kyoku2").css("color","#ff0000");
+            // alert("南入です！");
+        }
+        if(tonba==6){
+            $("#kyoku2").html('南二局');
+        }
+        if(tonba==7){
+            $("#kyoku2").html('南三局');
+        }
+        if(tonba==8){
+            $("#kyoku2").html('南四局');
+            // alert("オーラスです！");
+        }
+        if(tonba==9){
+            $("#kyoku2").html('終局！！');
+            $("#kyoku2").css("background","#000000");
+            $("#kyoku2").css("color","white");
+            $("#haku_btn").remove();
+            $("#hatsu_btn").remove();
+            $("#chun_btn").remove();
+            // alert("終局です！");
+            if(score < 25000){
+                $("#judgment").html("負け");
+                $("#judgment").css("color","#0000ff");
+                $("#judgment").css("background","#000000");
+            }
+            else if(score > 25000){
+                $("#judgment").html("勝ち");
+                $("#judgment").css("color","#ff0000");
+                $("#judgment").css("background","#000000");
+
+            }else{
+                $("#judgment").html("引き分け");
+                $("#judgment").css("color","#00ff00");
+                $("#judgment").css("background","#000000");
+            }
+
+        }
+    }
+});
+    
+    
+    
+    
+
+</script>
+</body>
+</html>
